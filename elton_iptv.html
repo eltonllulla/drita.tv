@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M3U/M3U8 Player with Buttons</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #f0f0f0;
+            overflow: hidden; /* Hide scrollbars */
+        }
+
+        #videoPlayer {
+            width: 100vw; /* 100% of the viewport width */
+            height: 100vh; /* 100% of the viewport height */
+            position: fixed; /* Fixed position */
+            top: 0;
+            left: 0;
+        }
+
+        #menuButton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 30;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 24px;
+            background-color: transparent; /* Make the background transparent */
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        #channelsList {
+            position: fixed;
+            top: 50px;
+            left: 10px;
+            z-index: 20;
+            display: none;
+            background-color: rgba(0, 0, 0, 0.8); /* Black with 80% opacity */
+            border-radius: 4px;
+            overflow-y: auto; /* Enables vertical scrolling */
+            max-height: 90vh; /* Adjusted to 90% of the viewport height */
+            width: 250px; /* Width can be adjusted as needed */
+            padding: 10px; /* Add some padding for visual spacing */
+        }
+
+        button {
+            display: block;
+            padding: 10px;
+            font-size: 16px;
+            background-color: rgba(0, 0, 0, 0.8); /* Black with 80% opacity */
+            color: white;
+            border: none;
+            text-align: left;
+            width: calc(100% - 20px); /* Adjust width to account for padding */
+            box-sizing: border-box;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Slightly lighter on hover */
+        }
+
+    </style>
+</head>
+<body>
+    <video controls id="videoPlayer" muted autoplay playsinline>
+        Your browser does not support the video tag.
+    </video>
+
+    <button id="menuButton" onclick="toggleMenu()">☰</button>
+    
+<div id="channelsList">
+    <button onclick="playChannel('https://hls.afintl.com/hls/stream.m3u8')">Afghanistan International</button>
+    <button onclick="playChannel('https://amchls.wns.live/hls/stream.m3u8')">AMC</button>
+    <button onclick="playChannel('https://d10rltuy0iweup.cloudfront.net/ATNINT/myStream/playlist.m3u8')">ATN International</button>
+    <button onclick="playChannel('https://d10rltuy0iweup.cloudfront.net/ATNNAT/myStream/playlist.m3u8')">ATN National</button>
+    <button onclick="playChannel('https://hls.afintl.com/hls/stream.m3u8')">Afghanistan International</button>
+    <button onclick="playChannel('https://live.relentlessinnovations.net:1936/afghannobel/afghannobel/playlist.m3u8')">Afghan Nobel Movies</button>
+    <button onclick="playChannel('https://hls.afintl.com/hls/stream.m3u8')">Afghanistan International</button>
+    <button onclick="playChannel('https://amchls.wns.live/hls/stream.m3u8')">AMC</button>
+    <button onclick="playChannel('https://d10rltuy0iweup.cloudfront.net/ATNINT/myStream/playlist.m3u8')">ATN International</button>
+    <button onclick="playChannel('https://d10rltuy0iweup.cloudfront.net/ATNNAT/myStream/playlist.m3u8')">ATN National</button>
+    <button onclick="playChannel('https://d10rltuy0iweup.cloudfront.net/ATNNEWS/myStream/playlist.m3u8')">ATN News</button>
+    <button onclick="playChannel('https://d2g7v53450s2i2.cloudfront.net/ATNUS/myStream/playlist.m3u8')">ATN US</button>
+    <button onclick="playChannel('https://59d39900ebfb8.streamlock.net/bahartv/bahartv/playlist.m3u8')">Bahar TV</button>
+    <button onclick="playChannel('https://raw.githubusercontent.com/taodicakhia/IPTV_Exception/master/channels/af/tolomusic.m3u8')">Barbud Music</button>
+    <button onclick="playChannel('https://sc2022.stream-link.org/tv2306.php?id=e02')">BBC News Asia Pacific</button>
+    <button onclick="playChannel('http://103.199.161.254/Content/bbcworld/Live/Channel(BBCworld)/Stream(01)/index.m3u8')">BBC World News South Asia</button>
+    <button onclick="playChannel('https://bloomberg.com/media-manifest/streams/asia.m3u8')">Bloomberg TV Asia</button>
+    <button onclick="playChannel('https://bloomberg.com/media-manifest/streams/asia-event.m3u8')">Bloomberg TV Asia Live Event</button>
+    <button onclick="playChannel('https://livecdn.fptplay.net/sdb/cnbc_hls.smil/playlist.m3u8')">CNBC Asia</button>
+    <button onclick="playChannel('https://dunyanhls.wns.live/hls/stream.m3u8')">Dunya Naw TV</button>
+    <button onclick="playChannel('https://eslahtvhls.wns.live/hls/stream.m3u8')">Eslah TV</button>
+    <button onclick="playChannel('https://cdn3.wowza.com/1/QmVNUVhTNTZSS3Uz/YWQ0aHpi/hls/live/playlist.m3u8')">EWTN Asia-Pacific</button>
+    <button onclick="playChannel('https://raw.githubusercontent.com/LaneSh4d0w/IPTV_Exception/master/channels/af/fazatv.m3u8')">Faza TV</button>
+    <button onclick="playChannel('http://51.210.199.58/hls/stream.m3u8')">Hewad TV</button>
+    <button onclick="playChannel('https://live.relentlessinnovations.net:1936/imantv/imantv/playlist.m3u8')">Iman TV</button>
+    <button onclick="playChannel('https://playout395.livestreamingcdn.com/live/Stream1/playlist.m3u8')">Kayhan TV</button>
+    <button onclick="playChannel('https://www.hewadwal.com:19360/noortv_abr/noortv_abr.m3u8')">Noor TV</button>
+    <button onclick="playChannel('https://hls.rta.live/hls/stream.m3u8')">RTA</button>
+    <button onclick="playChannel('https://hls.rtasport.live/hls/stream.m3u8')">RTA Sport</button>
+    <button onclick="playChannel('https://live.relentlessinnovations.net:1936/sadaehaq/sadaehaq/playlist.m3u8')">Sada-E-Haq TV</button>
+    <button onclick="playChannel('https://5a1178b42cc03.streamlock.net/shamshadtelevision/shamshadtelevision/index.m3u8')">Shamshad TV</button>
+    <button onclick="playChannel('https://59nyqa5elwap-hls-live.5centscdn.com/Sharq/eec89088ee408b80387155272b113256.sdp/playlist.m3u8')">Sharq Radio TV</button>
+    <button onclick="playChannel('https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01553-blueantmediaasi-smithsoniannz-samsungnz/playlist.m3u8')">Smithsonian Channel</button>
+    <button onclick="playChannel('https://iptv.sohailtv.com/sohail/playlist/index.m3u8')">Sohail TV</button>
+    <button onclick="playChannel('https://raw.githubusercontent.com/taodicakhia/IPTV_Exception/master/channels/af/tolonews.m3u8')">Tolo News</button>
+
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        var videoPlayer = document.getElementById("videoPlayer");
+        var channelsList = document.getElementById("channelsList");
+        var hls;
+
+        function playChannel(url) {
+            if (hls) {
+                hls.destroy();
+            }
+
+            hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(videoPlayer);
+
+            videoPlayer.play();
+            // Close the channels list after selecting a channel
+            channelsList.style.display = 'none';
+        }
+
+        function toggleMenu() {
+            channelsList.style.display = channelsList.style.display === 'block' ? 'none' : 'block';
+        }
+
+       
+
+        // Example default channel load on start
+        playChannel('https://hls.afintl.com/hls/stream.m3u8');
+    </script>
+</body>
+</html>
